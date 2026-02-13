@@ -3,7 +3,7 @@
 <title>Static Call Graph - [USB_MIDI2\USB_MIDI2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image USB_MIDI2\USB_MIDI2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6240002: Last Updated: Fri Jan 30 18:13:48 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Feb 13 11:13:21 2026
 <BR><P>
 <H3>Maximum Stack Usage =        408 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -924,19 +924,19 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_MspInit
 </UL>
 
-<P><STRONG><a name="[c0]"></a>HAL_RCCEx_GetPLL1ClockFreq</STRONG> (Thumb, 408 bytes, Stack size 8 bytes, stm32h5xx_hal_rcc_ex.o(.text.HAL_RCCEx_GetPLL1ClockFreq))
+<P><STRONG><a name="[c0]"></a>HAL_RCCEx_GetPLL1ClockFreq</STRONG> (Thumb, 424 bytes, Stack size 8 bytes, stm32h5xx_hal_rcc_ex.o(.text.HAL_RCCEx_GetPLL1ClockFreq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_RCCEx_GetPLL1ClockFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_GetPeriphCLKFreq
 </UL>
 
-<P><STRONG><a name="[bc]"></a>HAL_RCCEx_GetPLL2ClockFreq</STRONG> (Thumb, 408 bytes, Stack size 8 bytes, stm32h5xx_hal_rcc_ex.o(.text.HAL_RCCEx_GetPLL2ClockFreq))
+<P><STRONG><a name="[bc]"></a>HAL_RCCEx_GetPLL2ClockFreq</STRONG> (Thumb, 424 bytes, Stack size 8 bytes, stm32h5xx_hal_rcc_ex.o(.text.HAL_RCCEx_GetPLL2ClockFreq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_RCCEx_GetPLL2ClockFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_GetPeriphCLKFreq
 </UL>
 
-<P><STRONG><a name="[bb]"></a>HAL_RCCEx_GetPLL3ClockFreq</STRONG> (Thumb, 408 bytes, Stack size 8 bytes, stm32h5xx_hal_rcc_ex.o(.text.HAL_RCCEx_GetPLL3ClockFreq))
+<P><STRONG><a name="[bb]"></a>HAL_RCCEx_GetPLL3ClockFreq</STRONG> (Thumb, 424 bytes, Stack size 8 bytes, stm32h5xx_hal_rcc_ex.o(.text.HAL_RCCEx_GetPLL3ClockFreq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_RCCEx_GetPLL3ClockFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_GetPeriphCLKFreq
@@ -1040,7 +1040,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
 </UL>
 
-<P><STRONG><a name="[ab]"></a>HAL_SYSTICK_GetCLKSourceConfig</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, stm32h5xx_hal_cortex.o(.text.HAL_SYSTICK_GetCLKSourceConfig))
+<P><STRONG><a name="[ab]"></a>HAL_SYSTICK_GetCLKSourceConfig</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, stm32h5xx_hal_cortex.o(.text.HAL_SYSTICK_GetCLKSourceConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
 </UL>
 
@@ -1184,8 +1184,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usbd_control_xfer_cb
 </UL>
 
-<P><STRONG><a name="[11b]"></a>dcd_edpt_clear_stall</STRONG> (Thumb, 138 bytes, Stack size 8 bytes, dcd_stm32_fsdev.o(.text.dcd_edpt_clear_stall))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = dcd_edpt_clear_stall
+<P><STRONG><a name="[11b]"></a>dcd_edpt_clear_stall</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, dcd_stm32_fsdev.o(.text.dcd_edpt_clear_stall))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = dcd_edpt_clear_stall
 </UL>
 <BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usbd_edpt_clear_stall
 </UL>
@@ -1329,7 +1329,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> usbd.o(.rodata._usbd_driver)
 </UL>
-<P><STRONG><a name="[7e]"></a>midid_open</STRONG> (Thumb, 372 bytes, Stack size 40 bytes, midi_device.o(.text.midid_open))
+<P><STRONG><a name="[7e]"></a>midid_open</STRONG> (Thumb, 376 bytes, Stack size 40 bytes, midi_device.o(.text.midid_open))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = midid_open &rArr; tu_edpt_stream_read_xfer &rArr; usbd_edpt_xfer_fifo &rArr; dcd_edpt_xfer_fifo &rArr; dcd_transmit_packet &rArr; tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usbd_edpt_open
@@ -1345,8 +1345,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> usbd.o(.rodata._usbd_driver)
 </UL>
-<P><STRONG><a name="[80]"></a>midid_xfer_cb</STRONG> (Thumb, 160 bytes, Stack size 16 bytes, midi_device.o(.text.midid_xfer_cb))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = midid_xfer_cb &rArr; tu_edpt_stream_write_xfer &rArr; usbd_edpt_xfer_fifo &rArr; dcd_edpt_xfer_fifo &rArr; dcd_transmit_packet &rArr; tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
+<P><STRONG><a name="[80]"></a>midid_xfer_cb</STRONG> (Thumb, 146 bytes, Stack size 24 bytes, midi_device.o(.text.midid_xfer_cb))
+<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = midid_xfer_cb &rArr; tu_edpt_stream_write_xfer &rArr; usbd_edpt_xfer_fifo &rArr; dcd_edpt_xfer_fifo &rArr; dcd_transmit_packet &rArr; tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tud_midi_rx_cb
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tu_edpt_stream_read_xfer
@@ -1420,7 +1420,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tud_midi_n_stream_write
 </UL>
 
-<P><STRONG><a name="[f0]"></a>tu_edpt_stream_write_xfer</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, tusb.o(.text.tu_edpt_stream_write_xfer))
+<P><STRONG><a name="[f0]"></a>tu_edpt_stream_write_xfer</STRONG> (Thumb, 190 bytes, Stack size 24 bytes, tusb.o(.text.tu_edpt_stream_write_xfer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = tu_edpt_stream_write_xfer &rArr; usbd_edpt_xfer_fifo &rArr; dcd_edpt_xfer_fifo &rArr; dcd_transmit_packet &rArr; tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usbd_edpt_release
@@ -1462,7 +1462,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tu_fifo_read_n_access_mode
 </UL>
 
-<P><STRONG><a name="[e1]"></a>tu_fifo_read_n_access_mode</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, tusb_fifo.o(.text.tu_fifo_read_n_access_mode))
+<P><STRONG><a name="[e1]"></a>tu_fifo_read_n_access_mode</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, tusb_fifo.o(.text.tu_fifo_read_n_access_mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tu_fifo_peek_n_access_mode
@@ -1473,7 +1473,7 @@ Global Symbols
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tu_edpt_stream_write_xfer
 </UL>
 
-<P><STRONG><a name="[da]"></a>tu_fifo_write_n_access_mode</STRONG> (Thumb, 1146 bytes, Stack size 64 bytes, tusb_fifo.o(.text.tu_fifo_write_n_access_mode))
+<P><STRONG><a name="[da]"></a>tu_fifo_write_n_access_mode</STRONG> (Thumb, 1116 bytes, Stack size 64 bytes, tusb_fifo.o(.text.tu_fifo_write_n_access_mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = tu_fifo_write_n_access_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
@@ -1608,7 +1608,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tud_task_ext
 </UL>
 
-<P><STRONG><a name="[e7]"></a>tud_task_ext</STRONG> (Thumb, 1652 bytes, Stack size 64 bytes, usbd.o(.text.tud_task_ext))
+<P><STRONG><a name="[e7]"></a>tud_task_ext</STRONG> (Thumb, 1632 bytes, Stack size 64 bytes, usbd.o(.text.tud_task_ext))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256 + Unknown Stack Size
 <LI>Call Chain = tud_task_ext &rArr; process_get_descriptor &rArr; tud_control_xfer &rArr; usbd_edpt_xfer &rArr; dcd_edpt_xfer &rArr; dcd_transmit_packet &rArr; tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
 </UL>
@@ -1697,7 +1697,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[113]"></a>usbd_edpt_clear_stall</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, usbd.o(.text.usbd_edpt_clear_stall))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = usbd_edpt_clear_stall &rArr; dcd_edpt_clear_stall
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = usbd_edpt_clear_stall &rArr; dcd_edpt_clear_stall
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcd_edpt_clear_stall
 </UL>
@@ -1806,7 +1806,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tud_task_ext
 </UL>
 
-<P><STRONG><a name="[f2]"></a>process_get_descriptor</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, usbd.o(.text.process_get_descriptor))
+<P><STRONG><a name="[f2]"></a>process_get_descriptor</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, usbd.o(.text.process_get_descriptor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = process_get_descriptor &rArr; tud_control_xfer &rArr; usbd_edpt_xfer &rArr; dcd_edpt_xfer &rArr; dcd_transmit_packet &rArr; tu_fifo_read_n_access_mode &rArr; tu_fifo_peek_n_access_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tud_control_xfer
@@ -1831,7 +1831,7 @@ Local Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcd_init
 </UL>
 
-<P><STRONG><a name="[d4]"></a>dcd_ep_alloc</STRONG> (Thumb, 966 bytes, Stack size 16 bytes, dcd_stm32_fsdev.o(.text.dcd_ep_alloc))
+<P><STRONG><a name="[d4]"></a>dcd_ep_alloc</STRONG> (Thumb, 982 bytes, Stack size 16 bytes, dcd_stm32_fsdev.o(.text.dcd_ep_alloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = dcd_ep_alloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_bus_reset
