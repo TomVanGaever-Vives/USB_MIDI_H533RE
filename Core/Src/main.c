@@ -18,8 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdio.h>
-#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -58,6 +56,13 @@
 
 // Debounce
 #define DEBOUNCE_COUNT 5
+
+// Potentiometer ADC
+#define HYSTERESIS 4
+#define MIDI_CC_POT1 16
+#define MIDI_CC_POT2 17
+#define ADC_MIN 50    // Actual minimum ADC value from pot
+#define ADC_MAX 254   // Actual maximum ADC value from pot
 
 enum {
   BLINK_NOT_MOUNTED = 250,
@@ -100,6 +105,11 @@ const uint8_t note_map[4][4] = {
 static uint8_t active_notes[4][4] = {0};
 
 static uint32_t blink_interval_ms = BLINK_NOT_MOUNTED;
+
+// ADC Potentiometer (filled by DMA)
+volatile uint8_t adc_values[2] = {0, 0};  // [0]=PA0 (pot1), [1]=PA1 (pot2)
+static uint8_t last_midi_value_pot1 = 0;
+static uint8_t last_midi_value_pot2 = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -124,6 +134,9 @@ static void keypad_task(void);
 
 void led_blinking_task(void);
 void midi_task(void);
+void ADC_Start(void);
+void process_potentiometer(void);
+void process_potentiometer_2(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -139,6 +152,11 @@ static inline void board_led_write(bool state)
 }
 
 static inline void board_init_after_tusb(void) { (void)0; }
+
+// TinyUSB example used BOARD_TUD_RHPORT, on STM32 FS device this is 0.
+#ifndef BOARD_TUD_RHPORT
+  #define BOARD_TUD_RHPORT 0
+#endif
 /* USER CODE END 0 */
 
 /**
@@ -177,6 +195,17 @@ int main(void)
   /* USER CODE BEGIN 2 */
   MX_SPI_BitBang_Init();
   mcp23s17_init();
+  
+  /* Start ADC with DMA for potentiometer reading */
+  ADC_Start();
+  
+  /* Initialize TinyUSB stack */
+  tusb_rhport_init_t dev_init = {
+    .role  = TUSB_ROLE_DEVICE,
+    .speed = TUSB_SPEED_AUTO
+  };
+  tusb_init(BOARD_TUD_RHPORT, &dev_init);
+  
   board_init_after_tusb();
   /* USER CODE END 2 */
 
@@ -194,13 +223,6 @@ int main(void)
     Error_Handler();
   }
 
-  /* Initialize TinyUSB stack */
-  tusb_rhport_init_t dev_init = {
-    .role  = TUSB_ROLE_DEVICE,
-    .speed = TUSB_SPEED_AUTO
-  };
-  tusb_init(BOARD_TUD_RHPORT, &dev_init);
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -213,6 +235,8 @@ int main(void)
     /* USER CODE BEGIN 3 */
     keypad_task();
     midi_task();
+    process_potentiometer();
+    process_potentiometer_2();
     led_blinking_task();
   }
   /* USER CODE END 3 */
@@ -333,6 +357,7 @@ static void MX_ADC1_Init(void)
   /** Configure Regular Channel
   */
   sConfig.Rank = ADC_REGULAR_RANK_2;
+  sConfig.Channel = ADC_CHANNEL_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -487,6 +512,94 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+//--------------------------------------------------------------------+
+// ADC Potentiometer Control Change (CC) Handler
+//--------------------------------------------------------------------+
+// Start ADC and DMA sampling
+void ADC_Start(void)
+{
+  // Start timer 6 (provides trigger for ADC)
+  HAL_TIM_Base_Start(&htim6);
+  
+  // Start ADC with DMA (circular mode)
+  // DMA will continuously fill adc_values buffer (2 channels: PA0 and PA1)
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_values, 2);
+}
+
+// Process potentiometer 1 (PA0) value and send MIDI CC if changed significantly
+void process_potentiometer(void)
+{
+  // Remap ADC range (50-254) to MIDI range (0-127)
+  uint8_t adc_raw = adc_values[0];
+  uint8_t new_value;
+  if (adc_raw < ADC_MIN)
+    new_value = 0;
+  else if (adc_raw > ADC_MAX)
+    new_value = 127;
+  else
+    new_value = ((adc_raw - ADC_MIN) * 127) / (ADC_MAX - ADC_MIN);
+  
+  // Calculate absolute difference
+  int16_t diff = (int16_t)new_value - (int16_t)last_midi_value_pot1;
+  if (diff < 0) diff = -diff;
+  
+  // Only send if difference exceeds hysteresis threshold (reduces jitter)
+  if (diff >= HYSTERESIS)
+  {
+    if (tud_midi_mounted())
+    {
+      // MIDI CC Message format (4 bytes for TinyUSB)
+      uint8_t cc_msg[4] = {
+        0x0B,           // CIN: Control Change
+        0xB0,           // Status: CC on channel 0
+        MIDI_CC_POT1,   // CC# 16 (potentiometer 1)
+        new_value       // Value 0-127
+      };
+      tud_midi_packet_write(cc_msg);
+    }
+    
+    // Update last value for next comparison
+    last_midi_value_pot1 = new_value;
+  }
+}
+
+// Process potentiometer 2 (PA1) value and send MIDI CC if changed significantly
+void process_potentiometer_2(void)
+{
+  // Remap ADC range (50-254) to MIDI range (0-127)
+  uint8_t adc_raw = adc_values[1];
+  uint8_t new_value;
+  if (adc_raw < ADC_MIN)
+    new_value = 0;
+  else if (adc_raw > ADC_MAX)
+    new_value = 127;
+  else
+    new_value = ((adc_raw - ADC_MIN) * 127) / (ADC_MAX - ADC_MIN);
+  
+  // Calculate absolute difference
+  int16_t diff = (int16_t)new_value - (int16_t)last_midi_value_pot2;
+  if (diff < 0) diff = -diff;
+  
+  // Only send if difference exceeds hysteresis threshold (reduces jitter)
+  if (diff >= HYSTERESIS)
+  {
+    if (tud_midi_mounted())
+    {
+      // MIDI CC Message format (4 bytes for TinyUSB)
+      uint8_t cc_msg[4] = {
+        0x0B,           // CIN: Control Change
+        0xB0,           // Status: CC on channel 0
+        MIDI_CC_POT2,   // CC# 17 (potentiometer 2)
+        new_value       // Value 0-127
+      };
+      tud_midi_packet_write(cc_msg);
+    }
+    
+    // Update last value for next comparison
+    last_midi_value_pot2 = new_value;
+  }
+}
+
 //--------------------------------------------------------------------+
 // Device Callbacks - USB Connection State
 //--------------------------------------------------------------------+
