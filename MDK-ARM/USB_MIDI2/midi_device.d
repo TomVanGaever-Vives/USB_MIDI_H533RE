@@ -1,18 +1,15 @@
-usb_midi2/midi_device.o: \
-  ..\Middlewares\tinyusb\src\class\midi\midi_device.c \
-  ..\Middlewares\tinyusb\src\tusb_option.h \
-  ..\Middlewares\tinyusb\src\common\tusb_compiler.h \
-  ..\Core\Inc\tusb_config.h ..\Middlewares\tinyusb\src\common\tusb_mcu.h \
-  ..\Middlewares\tinyusb\src\device\usbd.h \
-  ..\Middlewares\tinyusb\src\common\tusb_common.h \
-  ..\Middlewares\tinyusb\src\common\tusb_verify.h \
-  ..\Middlewares\tinyusb\src\common\tusb_types.h \
-  ..\Middlewares\tinyusb\src\common\tusb_debug.h \
-  ..\Middlewares\tinyusb\src\device\usbd_pvt.h \
-  ..\Middlewares\tinyusb\src\osal\osal.h \
-  ..\Middlewares\tinyusb\src\osal\osal_none.h \
-  ..\Middlewares\tinyusb\src\common\tusb_fifo.h \
-  ..\Middlewares\tinyusb\src\common\tusb_private.h \
-  ..\Middlewares\tinyusb\src\class\midi\midi_device.h \
-  ..\Middlewares\tinyusb\src\class\audio\audio.h \
-  ..\Middlewares\tinyusb\src\class\midi\midi.h
+usb_midi2/midi_device.o: ..\Lib\tinyusb\src\class\midi\midi_device.c \
+  ..\Lib\tinyusb\src\tusb_option.h \
+  ..\Lib\tinyusb\src\common\tusb_compiler.h ..\Core\Inc\tusb_config.h \
+  ..\Lib\tinyusb\src\common\tusb_mcu.h ..\Lib\tinyusb\src\device\usbd.h \
+  ..\Lib\tinyusb\src\common\tusb_common.h \
+  ..\Lib\tinyusb\src\common\tusb_verify.h \
+  ..\Lib\tinyusb\src\common\tusb_types.h \
+  ..\Lib\tinyusb\src\common\tusb_debug.h \
+  ..\Lib\tinyusb\src\device\usbd_pvt.h ..\Lib\tinyusb\src\osal\osal.h \
+  ..\Lib\tinyusb\src\osal\osal_none.h \
+  ..\Lib\tinyusb\src\common\tusb_fifo.h \
+  ..\Lib\tinyusb\src\common\tusb_private.h \
+  ..\Lib\tinyusb\src\class\midi\midi_device.h \
+  ..\Lib\tinyusb\src\class\audio\audio.h \
+  ..\Lib\tinyusb\src\class\midi\midi.h
